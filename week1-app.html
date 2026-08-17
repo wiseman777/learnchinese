@@ -1,0 +1,1042 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+<title>Week 1 · 日常生活与看法</title>
+<style>
+  * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+  html, body { margin: 0; padding: 0; }
+  body {
+    background: #181614;
+    color: #F5F0E6;
+    font-family: Georgia, 'Songti SC', serif;
+    width: 100%;
+    max-width: 100vw;
+    overflow-x: hidden;
+    -webkit-text-size-adjust: 100%;
+  }
+  .ui { font-family: system-ui, -apple-system, sans-serif; }
+  button { font-family: inherit; }
+
+  .header {
+    padding: 22px 16px 16px;
+    border-bottom: 1px solid #33302B;
+    background: radial-gradient(ellipse at top left, rgba(178,58,46,0.18), transparent 60%), #181614;
+  }
+  .header-inner { display: flex; align-items: baseline; justify-content: space-between; flex-wrap: wrap; gap: 8px; }
+  .kicker { font-size: 11px; letter-spacing: 3px; color: #C9A24B; text-transform: uppercase; font-weight: 600; }
+  .title { margin: 4px 0 0; font-weight: 400; color: #F5F0E6; font-size: clamp(19px, 6vw, 26px); }
+  .subtitle { font-size: 13px; color: #B8AC94; }
+  .tabs { display: flex; gap: 8px; }
+  .tab-btn {
+    background: transparent; border: 1px solid #33302B; color: #B8AC94;
+    border-radius: 8px; padding: 7px 12px; font-size: 13px; cursor: pointer;
+  }
+  .tab-btn.active { background: #2A2620; border-color: #C9A24B; color: #C9A24B; font-weight: 700; }
+
+  .day-switcher { display: flex; overflow-x: auto; gap: 6px; padding: 16px 20px 6px; }
+  .day-btn {
+    flex-shrink: 0; padding: 8px 14px; border-radius: 20px; border: 1px solid #33302B;
+    background: transparent; color: #B8AC94; font-size: 13px; cursor: pointer; white-space: nowrap;
+  }
+  .day-btn.active { border-color: #C9A24B; background: #2A2620; color: #C9A24B; font-weight: 700; }
+
+  .main { padding: 10px 20px 40px; max-width: 720px; width: 100%; margin: 0 auto; }
+
+  .day-heading { display: flex; align-items: center; justify-content: space-between; margin: 14px 0 18px; }
+  .nav-arrow {
+    background: transparent; border: 1px solid #33302B; border-radius: 8px; color: #B8AC94;
+    padding: 6px 10px; cursor: pointer; font-size: 15px;
+  }
+  .nav-arrow:disabled { opacity: 0.35; cursor: default; }
+  .day-title { font-size: 20px; text-align: center; }
+  .day-theme { font-size: 13px; color: #C9A24B; text-align: center; }
+
+  .card { background: #1F1C18; border: 1px solid #2A2620; border-radius: 10px; padding: 18px 18px 20px; margin-bottom: 16px; }
+  .card.island { border-color: rgba(201,162,75,0.27); }
+  .card.mission { border-color: rgba(166,58,46,0.33); }
+
+  .section-label { display: flex; align-items: baseline; gap: 8px; margin-bottom: 12px; }
+  .section-n { font-size: 12px; color: #C9A24B; border: 1px solid rgba(201,162,75,0.33); border-radius: 4px; padding: 1px 6px; }
+  .section-title { font-size: 15px; font-weight: 600; color: #F5F0E6; }
+  .section-sub { font-size: 12px; color: #8a8574; }
+
+  .speak-btn { border: none; background: transparent; cursor: pointer; color: #8a7350; padding: 4px; font-size: 15px; line-height: 1; }
+
+  .island-row { display: flex; align-items: center; gap: 10px; }
+  .island-hanzi { font-size: 22px; }
+  .island-py { color: #C9A24B; font-size: 14px; margin-top: 2px; }
+  .island-en { color: #B8AC94; font-size: 13px; }
+
+  .word-row { display: flex; justify-content: space-between; align-items: center; gap: 10px; padding-bottom: 10px; border-bottom: 1px solid #2A2620; flex-wrap: wrap; }
+  .word-left { display: flex; align-items: center; gap: 8px; min-width: 160px; }
+  .word-hanzi { font-size: 21px; }
+  .word-py { font-size: 13px; color: #C9A24B; }
+  .word-en { font-size: 12.5px; color: #B8AC94; }
+
+  .stamp {
+    border-radius: 3px; transform: rotate(-2deg); padding: 2px 8px; font-size: 12px; font-weight: 700;
+    letter-spacing: 0.3px; cursor: pointer; display: inline-flex; align-items: center; gap: 5px; background: transparent;
+  }
+
+  .deck-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px; font-size: 12px; color: #8a8574; }
+  .ghost-btn {
+    background: transparent; border: 1px solid #33302B; border-radius: 6px; color: #B8AC94;
+    padding: 5px 10px; cursor: pointer; font-size: 12px; display: inline-flex; align-items: center; gap: 5px;
+  }
+  .deck-box {
+    background: #181410; border: 1px solid #2A2620; border-radius: 10px; padding: 26px 20px; text-align: center;
+    min-height: 150px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 10px;
+  }
+  .deck-tag { font-size: 11px; color: #C9A24B; letter-spacing: 1px; text-transform: uppercase; }
+  .deck-hanzi-row { display: flex; align-items: center; gap: 10px; }
+  .deck-hanzi { font-size: 26px; }
+  .deck-py { font-size: 14px; color: #C9A24B; }
+  .deck-en { font-size: 13px; color: #B8AC94; }
+  .deck-nav { display: flex; justify-content: space-between; margin-top: 12px; }
+
+  .dlg-line { display: flex; gap: 8px; align-items: flex-start; border-radius: 8px; padding: 6px 8px; margin-bottom: 4px; }
+  .dlg-line.playing { background: #2A2620; }
+  .dlg-avatar {
+    flex-shrink: 0; width: 20px; height: 20px; border-radius: 50%; font-size: 11px; font-weight: 700;
+    display: flex; align-items: center; justify-content: center; margin-top: 2px;
+  }
+  .dlg-avatar.A { background: rgba(76,122,99,0.2); color: #7FB79E; }
+  .dlg-avatar.B { background: rgba(166,58,46,0.2); color: #D98A7D; }
+  .dlg-hanzi { font-size: 17px; }
+  .dlg-py { font-size: 13px; color: #C9A24B; }
+  .dlg-en { font-size: 12.5px; color: #B8AC94; }
+  .play-btn {
+    font-size: 13px; background: transparent; border: 1px solid #4C7A63; color: #7FB79E;
+    border-radius: 6px; padding: 7px 12px; cursor: pointer; display: inline-flex; align-items: center; gap: 6px; margin-top: 10px;
+  }
+  .play-btn.stop { border-color: #A63A2E; color: #D98A7D; }
+
+  .prompt-row { display: flex; gap: 8px; align-items: center; margin-bottom: 10px; }
+  .prompt-n { font-size: 12px; color: #5c5648; width: 16px; }
+  .prompt-hanzi { font-size: 16px; }
+  .prompt-py { font-size: 12.5px; color: #C9A24B; }
+
+  .mission-label { display: flex; gap: 10px; align-items: flex-start; cursor: pointer; }
+  .mission-text { font-size: 14px; color: #EADFC8; }
+  .mission-text.done { color: #8a8574; text-decoration: line-through; }
+
+  .progress-summary { font-size: 14px; color: #B8AC94; }
+  .progress-bar-outer { height: 6px; background: #2A2620; border-radius: 3px; margin-top: 8px; overflow: hidden; }
+  .progress-bar-inner { height: 100%; background: #C9A24B; transition: width .4s ease; }
+  .legend { display: flex; gap: 14px; flex-wrap: wrap; font-size: 12px; color: #B8AC94; margin: 24px 0; }
+  .day-group { margin-bottom: 26px; }
+  .day-group-title { font-size: 13px; color: #C9A24B; margin-bottom: 10px; letter-spacing: 1px; text-transform: uppercase; }
+  .word-chips { display: flex; flex-wrap: wrap; gap: 10px; }
+  .word-chip { background: #1F1C18; border: 1px solid #2A2620; border-radius: 8px; padding: 10px 12px; min-width: 128px; }
+  .word-chip-top { display: flex; align-items: center; gap: 6px; }
+  .word-chip-hanzi { font-size: 18px; }
+  .word-chip-py { font-size: 11.5px; color: #8a8574; margin-bottom: 6px; }
+
+  @media (max-width: 520px) {
+    .header-inner { flex-direction: column; align-items: stretch; }
+    .tabs { width: 100%; }
+    .tabs .tab-btn { flex: 1; }
+    .main { padding-left: 12px; padding-right: 12px; }
+    .card { padding: 14px; }
+    .day-switcher { padding-left: 12px; padding-right: 12px; }
+  }
+
+  input[type="checkbox"] { accent-color: #C9A24B; width: 16px; height: 16px; }
+</style>
+</head>
+<body>
+<div id="app"></div>
+
+<script>
+/* ---------------------------------------------------------------
+   CONTENT — Week 1: 日常生活与看法 (Everyday life & opinions)
+----------------------------------------------------------------- */
+const LEVELS = [
+  { tag: "🟥", label: "New", stamp: "#A63A2E" },
+  { tag: "🟧", label: "Recognize", stamp: "#BE6A2E" },
+  { tag: "🟨", label: "Can read", stamp: "#B9932C" },
+  { tag: "🟩", label: "Can say", stamp: "#4C7A63" },
+  { tag: "⭐", label: "Automatic", stamp: "#9C7A2E" },
+];
+
+const DAYS = [
+  { id: "mon", label: "Monday", theme: "Giving your opinion",
+    words: [
+      { ch: "而且", py: "érqiě", en: "moreover / and" },
+      { ch: "可惜", py: "kěxī", en: "what a pity" },
+      { ch: "几乎", py: "jīhū", en: "almost" },
+      { ch: "根本", py: "gēnběn", en: "not at all / fundamentally" },
+      { ch: "原来", py: "yuánlái", en: "so that's why / it turns out" },
+    ],
+    island: { ch: "今天工作怎么样？", py: "Jīntiān gōngzuò zěnmeyàng?", en: "How was work today?" },
+    dialogue: [
+      { s: "A", ch: "今天工作怎么样？", py: "Jīntiān gōngzuò zěnmeyàng?", en: "How was work today?" },
+      { s: "B", ch: "还可以，但是几乎没有时间吃午饭。", py: "Hái kěyǐ, dànshì jīhū méiyǒu shíjiān chī wǔfàn.", en: "It was okay, but I almost had no time to eat lunch." },
+      { s: "A", ch: "真可惜。", py: "Zhēn kěxí.", en: "What a pity." },
+      { s: "B", ch: "而且下午的会议很无聊。", py: "Érqiě xiàwǔ de huìyì hěn wúliáo.", en: "And the afternoon meeting was boring." },
+      { s: "A", ch: "原来是这样，你根本不喜欢开会吧？", py: "Yuánlái shì zhèyàng, nǐ gēnběn bù xǐhuan kāihuì ba?", en: "So that's how it is — you don't like meetings at all, huh?" },
+      { s: "B", ch: "对，我根本不喜欢。", py: "Duì, wǒ gēnběn bù xǐhuan.", en: "Right, I don't like it at all." },
+    ],
+    prompts: [
+      { ch: "今天工作怎么样？", py: "Jīntiān gōngzuò zěnmeyàng?" },
+      { ch: "你觉得今天怎么样？", py: "Nǐ juéde jīntiān zěnmeyàng?" },
+      { ch: "你几乎每天都做什么？", py: "Nǐ jīhū měitiān dōu zuò shénme?" },
+      { ch: "有什么事让你觉得可惜？", py: "Yǒu shénme shì ràng nǐ juéde kěxī?" },
+      { ch: "说一件“原来是这样”的事。", py: "Shuō yí jiàn “yuánlái shì zhèyàng” de shì." },
+    ],
+    mission: "Ask your husband 今天工作怎么样？ and reply to him using 而且 or 根本 somewhere in your answer.",
+  },
+  { id: "tue", label: "Tuesday", theme: "Talking about your day",
+    words: [
+      { ch: "顺便", py: "shùnbiàn", en: "while you're at it" },
+      { ch: "当然", py: "dāngrán", en: "of course" },
+      { ch: "终于", py: "zhōngyú", en: "finally" },
+      { ch: "仍然", py: "réngrán", en: "still" },
+      { ch: "结果", py: "jiéguǒ", en: "as a result / the result" },
+    ],
+    island: { ch: "你觉得呢？", py: "Nǐ juéde ne?", en: "What do you think?" },
+    dialogue: [
+      { s: "A", ch: "你觉得呢？今天忙吗？", py: "Nǐ juéde ne? Jīntiān máng ma?", en: "What do you think — busy today?" },
+      { s: "B", ch: "很忙，但是我终于做完了。", py: "Hěn máng, dànshì wǒ zhōngyú zuò wán le.", en: "Very busy, but I finally finished." },
+      { s: "A", ch: "结果怎么样？", py: "Jiéguǒ zěnmeyàng?", en: "How did it turn out?" },
+      { s: "B", ch: "结果还不错。顺便问一下，你想吃什么？", py: "Jiéguǒ hái búcuò. Shùnbiàn wèn yíxià, nǐ xiǎng chī shénme?", en: "It turned out fine. By the way, what do you want to eat?" },
+      { s: "A", ch: "当然是中国菜！", py: "Dāngrán shì Zhōngguó cài!", en: "Chinese food, of course!" },
+      { s: "B", ch: "我仍然觉得你太爱吃中国菜了。", py: "Wǒ réngrán juéde nǐ tài ài chī Zhōngguó cài le.", en: "I still think you love Chinese food too much." },
+    ],
+    prompts: [
+      { ch: "你今天忙吗？", py: "Nǐ jīntiān máng ma?" },
+      { ch: "你今天做完工作了吗？", py: "Nǐ jīntiān zuò wán gōngzuò le ma?" },
+      { ch: "结果怎么样？", py: "Jiéguǒ zěnmeyàng?" },
+      { ch: "你今天顺便做了什么？", py: "Nǐ jīntiān shùnbiàn zuòle shénme?" },
+      { ch: "你现在仍然觉得累吗？", py: "Nǐ xiànzài réngrán juéde lèi ma?" },
+    ],
+    mission: "Tell your husband about your day and work in 终于 (finally) and 结果 (as a result) naturally.",
+  },
+  { id: "wed", label: "Wednesday", theme: "Talking about movies",
+    words: [
+      { ch: "尤其", py: "yóuqí", en: "especially" },
+      { ch: "另外", py: "lìngwài", en: "besides / in addition" },
+      { ch: "简直", py: "jiǎnzhí", en: "simply / absolutely" },
+      { ch: "估计", py: "gūjì", en: "I guess / to estimate" },
+      { ch: "肯定", py: "kěndìng", en: "definitely" },
+    ],
+    island: { ch: "为什么这么说？", py: "Wèishénme zhème shuō?", en: "Why do you say that?" },
+    dialogue: [
+      { s: "A", ch: "为什么这么说？你喜欢这部电影吗？", py: "Wèishénme zhème shuō? Nǐ xǐhuan zhè bù diànyǐng ma?", en: "Why do you say that? Do you like this movie?" },
+      { s: "B", ch: "喜欢，简直太好看了，尤其是最后一部分。", py: "Xǐhuan, jiǎnzhí tài hǎokàn le, yóuqí shì zuìhòu yí bùfen.", en: "I do — it's simply amazing, especially the last part." },
+      { s: "A", ch: "我估计你会喜欢。", py: "Wǒ gūjì nǐ huì xǐhuan.", en: "I figured you'd like it." },
+      { s: "B", ch: "另外，演员也很厉害。", py: "Lìngwài, yǎnyuán yě hěn lìhai.", en: "Also, the actors are amazing." },
+      { s: "A", ch: "肯定的，他演得很好。", py: "Kěndìng de, tā yǎn de hěn hǎo.", en: "Definitely — he acted really well." },
+    ],
+    prompts: [
+      { ch: "你喜欢看什么电影？", py: "Nǐ xǐhuan kàn shénme diànyǐng?" },
+      { ch: "你尤其喜欢哪个演员？", py: "Nǐ yóuqí xǐhuan nǎge yǎnyuán?" },
+      { ch: "最近看的电影怎么样？", py: "Zuìjìn kàn de diànyǐng zěnmeyàng?" },
+      { ch: "你估计我会喜欢这部电影吗？", py: "Nǐ gūjì wǒ huì xǐhuan zhè bù diànyǐng ma?" },
+      { ch: "还有另外的电影推荐吗？", py: "Hái yǒu lìngwài de diànyǐng tuījiàn ma?" },
+    ],
+    mission: "Recommend a movie to your husband and use 尤其 and 肯定 while you talk about it.",
+  },
+  { id: "thu", label: "Thursday", theme: "Talking with your husband",
+    words: [
+      { ch: "麻烦", py: "máfan", en: "troublesome / could you..." },
+      { ch: "抱歉", py: "bàoqiàn", en: "sorry" },
+      { ch: "赶紧", py: "gǎnjǐn", en: "hurry up / right away" },
+      { ch: "到底", py: "dàodǐ", en: "after all / exactly" },
+      { ch: "即使", py: "jíshǐ", en: "even if" },
+    ],
+    island: { ch: "我不太明白。", py: "Wǒ bú tài míngbai.", en: "I don't quite understand." },
+    dialogue: [
+      { s: "A", ch: "我不太明白，你到底想说什么？", py: "Wǒ bú tài míngbai, nǐ dàodǐ xiǎng shuō shénme?", en: "I don't quite understand — what are you actually trying to say?" },
+      { s: "B", ch: "抱歉，我说得不清楚。", py: "Bàoqiàn, wǒ shuō de bù qīngchu.", en: "Sorry, I didn't explain clearly." },
+      { s: "A", ch: "没关系，麻烦你再说一次。", py: "Méi guānxi, máfan nǐ zài shuō yí cì.", en: "It's fine, could you say it again?" },
+      { s: "B", ch: "好，即使很麻烦，我也会说清楚。", py: "Hǎo, jíshǐ hěn máfan, wǒ yě huì shuō qīngchu.", en: "Okay, even if it's a hassle, I'll explain it clearly." },
+      { s: "A", ch: "那我们赶紧谈谈吧。", py: "Nà wǒmen gǎnjǐn tántan ba.", en: "Then let's talk about it right away." },
+    ],
+    prompts: [
+      { ch: "你今天麻烦别人了吗？", py: "Nǐ jīntiān máfan biéren le ma?" },
+      { ch: "你今天想跟谁说抱歉？", py: "Nǐ jīntiān xiǎng gēn shéi shuō bàoqiàn?" },
+      { ch: "你今天要赶紧做什么事？", py: "Nǐ jīntiān yào gǎnjǐn zuò shénme shì?" },
+      { ch: "你到底想做什么？", py: "Nǐ dàodǐ xiǎng zuò shénme?" },
+      { ch: "即使很累，你今天还做了什么？", py: "Jíshǐ hěn lèi, nǐ jīntiān hái zuòle shénme?" },
+    ],
+    mission: "Real conversation today: actually say 麻烦你… and 抱歉 to your husband in context, not just as an exercise.",
+  },
+  { id: "fri", label: "Friday", theme: "History & something surprising",
+    words: [
+      { ch: "除了", py: "chúle", en: "except for / besides" },
+      { ch: "不但", py: "búdàn", en: "not only" },
+      { ch: "毕竟", py: "bìjìng", en: "after all" },
+      { ch: "怪不得", py: "guàibude", en: "no wonder" },
+      { ch: "居然", py: "jūrán", en: "unexpectedly / surprisingly" },
+    ],
+    island: { ch: "可以再说一次吗？", py: "Kěyǐ zài shuō yí cì ma?", en: "Can you say that again?" },
+    dialogue: [
+      { s: "A", ch: "你知道吗？古代的皇帝居然有很多妻子。", py: "Nǐ zhīdào ma? Gǔdài de huángdì jūrán yǒu hěn duō qīzi.", en: "Did you know? Ancient emperors surprisingly had many wives." },
+      { s: "B", ch: "真的吗？怪不得历史书这么厚。", py: "Zhēn de ma? Guàibude lìshǐ shū zhème hòu.", en: "Really? No wonder history books are so thick." },
+      { s: "A", ch: "对，除了妻子多，他们不但要管理国家，还要打仗。", py: "Duì, chúle qīzi duō, tāmen búdàn yào guǎnlǐ guójiā, hái yào dǎzhàng.", en: "Right, besides having many wives, they not only had to run the country, but fight wars too." },
+      { s: "B", ch: "毕竟当皇帝不容易。", py: "Bìjìng dāng huángdì bù róngyì.", en: "After all, being an emperor isn't easy." },
+    ],
+    prompts: [
+      { ch: "除了工作，你还喜欢做什么？", py: "Chúle gōngzuò, nǐ hái xǐhuan zuò shénme?" },
+      { ch: "今天有什么事让你觉得“怪不得”？", py: "Jīntiān yǒu shénme shì ràng nǐ juéde “guàibude”?" },
+      { ch: "有什么事让你觉得居然发生了？", py: "Yǒu shénme shì ràng nǐ juéde jūrán fāshēng le?" },
+      { ch: "你毕竟学了多久中文？", py: "Nǐ bìjìng xuéle duōjiǔ Zhōngwén?" },
+      { ch: "说一件关于历史的事。", py: "Shuō yí jiàn guānyú lìshǐ de shì." },
+    ],
+    mission: "Share one surprising history fact with your husband using 居然 or 怪不得.",
+  },
+];
+
+const SENTENCE_BANK = {
+  而且: [
+    { ch: "这个很好吃，而且很便宜。", py: "Zhège hěn hǎochī, érqiě hěn piányi.", en: "This is delicious, and cheap." },
+    { ch: "他很聪明，而且很努力。", py: "Tā hěn cōngmíng, érqiě hěn nǔlì.", en: "He's smart, and hardworking." },
+    { ch: "今天很热，而且很忙。", py: "Jīntiān hěn rè, érqiě hěn máng.", en: "Today is hot, and busy." },
+    { ch: "那部电影很长，而且很无聊。", py: "Nà bù diànyǐng hěn cháng, érqiě hěn wúliáo.", en: "That movie is long, and boring." },
+    { ch: "我喜欢猫，而且喜欢狗。", py: "Wǒ xǐhuan māo, érqiě xǐhuan gǒu.", en: "I like cats, and I like dogs." },
+    { ch: "她很漂亮，而且很聪明。", py: "Tā hěn piàoliang, érqiě hěn cōngmíng.", en: "She's pretty, and smart." },
+    { ch: "这家店很近，而且很好。", py: "Zhè jiā diàn hěn jìn, érqiě hěn hǎo.", en: "This shop is close, and good." },
+  ],
+  可惜: [
+    { ch: "太可惜了！", py: "Tài kěxī le!", en: "What a pity!" },
+    { ch: "可惜我不能去。", py: "Kěxī wǒ bù néng qù.", en: "Pity I can't go." },
+    { ch: "可惜他不在家。", py: "Kěxī tā bú zài jiā.", en: "Pity he's not home." },
+    { ch: "可惜今天下雨。", py: "Kěxī jīntiān xiàyǔ.", en: "Pity it's raining today." },
+    { ch: "可惜票卖完了。", py: "Kěxī piào mài wán le.", en: "Pity the tickets sold out." },
+    { ch: "可惜我们没有时间。", py: "Kěxī wǒmen méiyǒu shíjiān.", en: "Pity we don't have time." },
+    { ch: "可惜他没来。", py: "Kěxī tā méi lái.", en: "Pity he didn't come." },
+  ],
+  几乎: [
+    { ch: "我几乎忘了。", py: "Wǒ jīhū wàng le.", en: "I almost forgot." },
+    { ch: "他几乎每天都来。", py: "Tā jīhū měitiān dōu lái.", en: "He comes almost every day." },
+    { ch: "我几乎迟到了。", py: "Wǒ jīhū chídào le.", en: "I was almost late." },
+    { ch: "几乎没有人知道。", py: "Jīhū méiyǒu rén zhīdào.", en: "Almost no one knows." },
+    { ch: "我几乎吃完了。", py: "Wǒ jīhū chī wán le.", en: "I've almost finished eating." },
+    { ch: "他几乎不说话。", py: "Tā jīhū bù shuōhuà.", en: "He almost never talks." },
+    { ch: "我几乎不认识他。", py: "Wǒ jīhū bú rènshi tā.", en: "I barely know him." },
+  ],
+  根本: [
+    { ch: "我根本不知道。", py: "Wǒ gēnběn bù zhīdào.", en: "I don't know at all." },
+    { ch: "他根本不喜欢我。", py: "Tā gēnběn bù xǐhuan wǒ.", en: "He doesn't like me at all." },
+    { ch: "这根本不难。", py: "Zhè gēnběn bù nán.", en: "This isn't hard at all." },
+    { ch: "我根本没有钱。", py: "Wǒ gēnběn méiyǒu qián.", en: "I have no money at all." },
+    { ch: "他根本不来。", py: "Tā gēnběn bù lái.", en: "He's simply not coming." },
+    { ch: "我根本听不懂。", py: "Wǒ gēnběn tīng bu dǒng.", en: "I simply can't understand it." },
+    { ch: "这根本不是问题。", py: "Zhè gēnběn bú shì wèntí.", en: "This is no problem at all." },
+  ],
+  原来: [
+    { ch: "原来是你！", py: "Yuánlái shì nǐ!", en: "Oh, it's you!" },
+    { ch: "原来他是老师。", py: "Yuánlái tā shì lǎoshī.", en: "Turns out he's a teacher." },
+    { ch: "原来你在这儿。", py: "Yuánlái nǐ zài zhèr.", en: "So you're here." },
+    { ch: "原来这么简单。", py: "Yuánlái zhème jiǎndān.", en: "Turns out it's this simple." },
+    { ch: "原来你不知道。", py: "Yuánlái nǐ bù zhīdào.", en: "So you didn't know." },
+    { ch: "原来他已经走了。", py: "Yuánlái tā yǐjīng zǒu le.", en: "Turns out he already left." },
+    { ch: "原来今天休息。", py: "Yuánlái jīntiān xiūxi.", en: "Turns out today's a day off." },
+  ],
+  顺便: [
+    { ch: "顺便问一下。", py: "Shùnbiàn wèn yíxià.", en: "While I'm asking..." },
+    { ch: "你顺便买瓶水吧。", py: "Nǐ shùnbiàn mǎi píng shuǐ ba.", en: "Grab a water while you're at it." },
+    { ch: "我顺便去了超市。", py: "Wǒ shùnbiàn qùle chāoshì.", en: "I went to the store while I was out." },
+    { ch: "顺便说一句，我很忙。", py: "Shùnbiàn shuō yí jù, wǒ hěn máng.", en: "By the way, I'm busy." },
+    { ch: "你顺便看看这个。", py: "Nǐ shùnbiàn kànkan zhège.", en: "Take a look at this while you're at it." },
+    { ch: "我顺便帮他买了。", py: "Wǒ shùnbiàn bāng tā mǎi le.", en: "I bought it for him while I was there." },
+    { ch: "顺便提一下这件事。", py: "Shùnbiàn tí yíxià zhè jiàn shì.", en: "Just mentioning this while I'm at it." },
+  ],
+  当然: [
+    { ch: "当然可以！", py: "Dāngrán kěyǐ!", en: "Of course!" },
+    { ch: "当然是真的。", py: "Dāngrán shì zhēn de.", en: "Of course it's true." },
+    { ch: "我当然记得。", py: "Wǒ dāngrán jìde.", en: "Of course I remember." },
+    { ch: "他当然会来。", py: "Tā dāngrán huì lái.", en: "Of course he'll come." },
+    { ch: "那当然！", py: "Nà dāngrán!", en: "Of course!" },
+    { ch: "我当然喜欢你。", py: "Wǒ dāngrán xǐhuan nǐ.", en: "Of course I like you." },
+    { ch: "当然没问题。", py: "Dāngrán méi wèntí.", en: "Of course, no problem." },
+  ],
+  终于: [
+    { ch: "我终于到了。", py: "Wǒ zhōngyú dào le.", en: "I finally arrived." },
+    { ch: "他终于回来了。", py: "Tā zhōngyú huílai le.", en: "He's finally back." },
+    { ch: "终于做完了！", py: "Zhōngyú zuò wán le!", en: "Finally done!" },
+    { ch: "我终于明白了。", py: "Wǒ zhōngyú míngbai le.", en: "I finally understand." },
+    { ch: "终于星期五了。", py: "Zhōngyú xīngqīwǔ le.", en: "It's finally Friday." },
+    { ch: "他终于说话了。", py: "Tā zhōngyú shuōhuà le.", en: "He finally spoke." },
+    { ch: "我们终于见面了。", py: "Wǒmen zhōngyú jiànmiàn le.", en: "We finally met." },
+  ],
+  仍然: [
+    { ch: "我仍然很累。", py: "Wǒ réngrán hěn lèi.", en: "I'm still tired." },
+    { ch: "他仍然不明白。", py: "Tā réngrán bù míngbai.", en: "He still doesn't understand." },
+    { ch: "仍然很热。", py: "Réngrán hěn rè.", en: "It's still hot." },
+    { ch: "我仍然爱你。", py: "Wǒ réngrán ài nǐ.", en: "I still love you." },
+    { ch: "他仍然在等。", py: "Tā réngrán zài děng.", en: "He's still waiting." },
+    { ch: "我仍然记得。", py: "Wǒ réngrán jìde.", en: "I still remember." },
+    { ch: "仍然没有消息。", py: "Réngrán méiyǒu xiāoxi.", en: "Still no news." },
+  ],
+  结果: [
+    { ch: "结果怎么样？", py: "Jiéguǒ zěnmeyàng?", en: "How did it turn out?" },
+    { ch: "结果很好。", py: "Jiéguǒ hěn hǎo.", en: "The result was good." },
+    { ch: "结果我迟到了。", py: "Jiéguǒ wǒ chídào le.", en: "As a result, I was late." },
+    { ch: "我不知道结果。", py: "Wǒ bù zhīdào jiéguǒ.", en: "I don't know the result." },
+    { ch: "结果他没来。", py: "Jiéguǒ tā méi lái.", en: "As a result, he didn't come." },
+    { ch: "结果很不错。", py: "Jiéguǒ hěn búcuò.", en: "The result was pretty good." },
+    { ch: "考试结果出来了。", py: "Kǎoshì jiéguǒ chūlai le.", en: "The exam results are out." },
+  ],
+  尤其: [
+    { ch: "我喜欢水果，尤其是苹果。", py: "Wǒ xǐhuan shuǐguǒ, yóuqí shì píngguǒ.", en: "I like fruit, especially apples." },
+    { ch: "今天很忙，尤其是早上。", py: "Jīntiān hěn máng, yóuqí shì zǎoshang.", en: "Today is busy, especially the morning." },
+    { ch: "他很聪明，尤其是数学。", py: "Tā hěn cōngmíng, yóuqí shì shùxué.", en: "He's smart, especially at math." },
+    { ch: "这里很漂亮，尤其是晚上。", py: "Zhèlǐ hěn piàoliang, yóuqí shì wǎnshàng.", en: "It's beautiful here, especially at night." },
+    { ch: "我怕冷，尤其是冬天。", py: "Wǒ pà lěng, yóuqí shì dōngtiān.", en: "I hate the cold, especially in winter." },
+    { ch: "她唱歌很好听，尤其是这首歌。", py: "Tā chànggē hěn hǎotīng, yóuqí shì zhè shǒu gē.", en: "She sings beautifully, especially this song." },
+    { ch: "我累了，尤其是腿。", py: "Wǒ lèi le, yóuqí shì tuǐ.", en: "I'm tired, especially my legs." },
+  ],
+  另外: [
+    { ch: "另外，我还想说一件事。", py: "Lìngwài, wǒ hái xiǎng shuō yí jiàn shì.", en: "Also, I want to say one more thing." },
+    { ch: "我要咖啡，另外要一个蛋糕。", py: "Wǒ yào kāfēi, lìngwài yào yí ge dàngāo.", en: "I'll have coffee, plus a cake." },
+    { ch: "另外那个也不错。", py: "Lìngwài nàge yě búcuò.", en: "That other one is good too." },
+    { ch: "我还有另外一个问题。", py: "Wǒ hái yǒu lìngwài yí ge wèntí.", en: "I have one more question." },
+    { ch: "另外三个人也来了。", py: "Lìngwài sān ge rén yě lái le.", en: "Three other people came too." },
+    { ch: "另外找个时间吧。", py: "Lìngwài zhǎo ge shíjiān ba.", en: "Let's find another time." },
+    { ch: "另外，天气也不好。", py: "Lìngwài, tiānqì yě bù hǎo.", en: "Also, the weather isn't good either." },
+  ],
+  简直: [
+    { ch: "简直太好了！", py: "Jiǎnzhí tài hǎo le!", en: "Simply amazing!" },
+    { ch: "这简直难以相信。", py: "Zhè jiǎnzhí nányǐ xiāngxìn.", en: "This is simply unbelievable." },
+    { ch: "他简直是天才。", py: "Tā jiǎnzhí shì tiāncái.", en: "He's simply a genius." },
+    { ch: "简直太贵了。", py: "Jiǎnzhí tài guì le.", en: "It's simply too expensive." },
+    { ch: "这简直太好笑了。", py: "Zhè jiǎnzhí tài hǎoxiào le.", en: "This is simply hilarious." },
+    { ch: "简直不可能。", py: "Jiǎnzhí bù kěnéng.", en: "Simply impossible." },
+    { ch: "他简直太厉害了。", py: "Tā jiǎnzhí tài lìhai le.", en: "He's simply amazing." },
+  ],
+  估计: [
+    { ch: "我估计他会来。", py: "Wǒ gūjì tā huì lái.", en: "I'm guessing he'll come." },
+    { ch: "估计要下雨。", py: "Gūjì yào xiàyǔ.", en: "I think it's going to rain." },
+    { ch: "我估计很贵。", py: "Wǒ gūjì hěn guì.", en: "I'd guess it's expensive." },
+    { ch: "估计他忘了。", py: "Gūjì tā wàng le.", en: "I guess he forgot." },
+    { ch: "我估计不行。", py: "Wǒ gūjì bùxíng.", en: "I don't think it'll work." },
+    { ch: "估计还要一个小时。", py: "Gūjì hái yào yí ge xiǎoshí.", en: "I'd guess another hour." },
+    { ch: "我估计他知道。", py: "Wǒ gūjì tā zhīdào.", en: "I'd guess he knows." },
+  ],
+  肯定: [
+    { ch: "他肯定会来。", py: "Tā kěndìng huì lái.", en: "He'll definitely come." },
+    { ch: "肯定很好吃。", py: "Kěndìng hěn hǎochī.", en: "It's definitely delicious." },
+    { ch: "我肯定记得。", py: "Wǒ kěndìng jìde.", en: "I definitely remember." },
+    { ch: "这肯定是真的。", py: "Zhè kěndìng shì zhēn de.", en: "This is definitely true." },
+    { ch: "他肯定知道。", py: "Tā kěndìng zhīdào.", en: "He definitely knows." },
+    { ch: "肯定没问题。", py: "Kěndìng méi wèntí.", en: "Definitely no problem." },
+    { ch: "我肯定不会忘。", py: "Wǒ kěndìng bú huì wàng.", en: "I definitely won't forget." },
+  ],
+  麻烦: [
+    { ch: "麻烦你了。", py: "Máfan nǐ le.", en: "Sorry to trouble you." },
+    { ch: "真麻烦。", py: "Zhēn máfan.", en: "What a hassle." },
+    { ch: "麻烦给我一杯水。", py: "Máfan gěi wǒ yì bēi shuǐ.", en: "Could I get a glass of water, please." },
+    { ch: "这件事很麻烦。", py: "Zhè jiàn shì hěn máfan.", en: "This is troublesome." },
+    { ch: "麻烦让一下。", py: "Máfan ràng yíxià.", en: "Excuse me, could you move." },
+    { ch: "别麻烦了。", py: "Bié máfan le.", en: "Don't go to the trouble." },
+    { ch: "麻烦你再说一次。", py: "Máfan nǐ zài shuō yí cì.", en: "Could you say that again, please." },
+  ],
+  抱歉: [
+    { ch: "抱歉，我迟到了。", py: "Bàoqiàn, wǒ chídào le.", en: "Sorry, I'm late." },
+    { ch: "真的很抱歉。", py: "Zhēnde hěn bàoqiàn.", en: "I'm really sorry." },
+    { ch: "抱歉打扰你了。", py: "Bàoqiàn dǎrǎo nǐ le.", en: "Sorry to bother you." },
+    { ch: "抱歉，我忘了。", py: "Bàoqiàn, wǒ wàng le.", en: "Sorry, I forgot." },
+    { ch: "他跟我说抱歉。", py: "Tā gēn wǒ shuō bàoqiàn.", en: "He said sorry to me." },
+    { ch: "抱歉，我不能去。", py: "Bàoqiàn, wǒ bù néng qù.", en: "Sorry, I can't go." },
+    { ch: "抱歉让你等了。", py: "Bàoqiàn ràng nǐ děng le.", en: "Sorry to keep you waiting." },
+  ],
+  赶紧: [
+    { ch: "赶紧走吧！", py: "Gǎnjǐn zǒu ba!", en: "Let's hurry and go!" },
+    { ch: "你赶紧吃吧。", py: "Nǐ gǎnjǐn chī ba.", en: "Hurry up and eat." },
+    { ch: "我们赶紧回家。", py: "Wǒmen gǎnjǐn huíjiā.", en: "Let's hurry home." },
+    { ch: "赶紧起床！", py: "Gǎnjǐn qǐchuáng!", en: "Get up quickly!" },
+    { ch: "你赶紧看看。", py: "Nǐ gǎnjǐn kànkan.", en: "Go take a quick look." },
+    { ch: "我赶紧打电话给他。", py: "Wǒ gǎnjǐn dǎ diànhuà gěi tā.", en: "I quickly called him." },
+    { ch: "赶紧休息一下。", py: "Gǎnjǐn xiūxi yíxià.", en: "Go rest right away." },
+  ],
+  到底: [
+    { ch: "你到底想要什么？", py: "Nǐ dàodǐ xiǎng yào shénme?", en: "What do you actually want?" },
+    { ch: "到底发生了什么？", py: "Dàodǐ fāshēng le shénme?", en: "What actually happened?" },
+    { ch: "他到底是谁？", py: "Tā dàodǐ shì shéi?", en: "Who is he, exactly?" },
+    { ch: "你到底去不去？", py: "Nǐ dàodǐ qù bu qù?", en: "Are you going or not?" },
+    { ch: "到底是怎么回事？", py: "Dàodǐ shì zěnme huí shì?", en: "What's really going on?" },
+    { ch: "你到底喜不喜欢我？", py: "Nǐ dàodǐ xǐ bu xǐhuan wǒ?", en: "Do you actually like me?" },
+    { ch: "到底几点了？", py: "Dàodǐ jǐ diǎn le?", en: "What time is it, exactly?" },
+  ],
+  即使: [
+    { ch: "即使很忙，我也会来。", py: "Jíshǐ hěn máng, wǒ yě huì lái.", en: "Even if I'm busy, I'll come." },
+    { ch: "即使下雨，我们也要去。", py: "Jíshǐ xiàyǔ, wǒmen yě yào qù.", en: "Even if it rains, we're going." },
+    { ch: "即使很难，我也想试试。", py: "Jíshǐ hěn nán, wǒ yě xiǎng shìshi.", en: "Even if it's hard, I want to try." },
+    { ch: "即使他不来，我也没关系。", py: "Jíshǐ tā bù lái, wǒ yě méi guānxi.", en: "Even if he doesn't come, it's fine." },
+    { ch: "即使很累，他也不休息。", py: "Jíshǐ hěn lèi, tā yě bù xiūxi.", en: "Even if he's tired, he won't rest." },
+    { ch: "即使很贵，我也要买。", py: "Jíshǐ hěn guì, wǒ yě yào mǎi.", en: "Even if it's expensive, I'll buy it." },
+    { ch: "即使你不同意，我也要做。", py: "Jíshǐ nǐ bù tóngyì, wǒ yě yào zuò.", en: "Even if you don't agree, I'll do it." },
+  ],
+  除了: [
+    { ch: "除了你，大家都来了。", py: "Chúle nǐ, dàjiā dōu lái le.", en: "Everyone came except you." },
+    { ch: "除了工作，我没有别的事。", py: "Chúle gōngzuò, wǒ méiyǒu bié de shì.", en: "Besides work, I have nothing else." },
+    { ch: "除了中文，我还会英文。", py: "Chúle Zhōngwén, wǒ hái huì Yīngwén.", en: "Besides Chinese, I also know English." },
+    { ch: "除了他，没人知道。", py: "Chúle tā, méi rén zhīdào.", en: "Except for him, no one knows." },
+    { ch: "除了下雨，天气不错。", py: "Chúle xiàyǔ, tiānqì búcuò.", en: "Aside from the rain, the weather's nice." },
+    { ch: "除了这个，还有别的吗？", py: "Chúle zhège, hái yǒu bié de ma?", en: "Besides this, is there anything else?" },
+    { ch: "除了睡觉，他什么都不想做。", py: "Chúle shuìjiào, tā shénme dōu bù xiǎng zuò.", en: "Besides sleeping, he doesn't want to do anything." },
+  ],
+  不但: [
+    { ch: "他不但聪明，而且努力。", py: "Tā búdàn cōngmíng, érqiě nǔlì.", en: "He's not only smart, but hardworking too." },
+    { ch: "我不但累，而且饿。", py: "Wǒ búdàn lèi, érqiě è.", en: "I'm not only tired, but hungry too." },
+    { ch: "她不但漂亮，而且善良。", py: "Tā búdàn piàoliang, érqiě shànliáng.", en: "She's not only pretty, but kind too." },
+    { ch: "这不但便宜，而且好吃。", py: "Zhè búdàn piányi, érqiě hǎochī.", en: "This is not only cheap, but delicious too." },
+    { ch: "他不但会说中文，还会说日文。", py: "Tā búdàn huì shuō Zhōngwén, hái huì shuō Rìwén.", en: "He can not only speak Chinese, but Japanese too." },
+    { ch: "今天不但热，而且忙。", py: "Jīntiān búdàn rè, érqiě máng.", en: "Today is not only hot, but busy too." },
+    { ch: "我不但喜欢猫，还喜欢狗。", py: "Wǒ búdàn xǐhuan māo, hái xǐhuan gǒu.", en: "I not only like cats, but dogs too." },
+  ],
+  毕竟: [
+    { ch: "毕竟他还年轻。", py: "Bìjìng tā hái niánqīng.", en: "After all, he's still young." },
+    { ch: "毕竟这是第一次。", py: "Bìjìng zhè shì dì-yī cì.", en: "After all, it's the first time." },
+    { ch: "毕竟我们是朋友。", py: "Bìjìng wǒmen shì péngyou.", en: "After all, we're friends." },
+    { ch: "毕竟他很努力了。", py: "Bìjìng tā hěn nǔlì le.", en: "After all, he tried hard." },
+    { ch: "毕竟已经很晚了。", py: "Bìjìng yǐjīng hěn wǎn le.", en: "After all, it's already late." },
+    { ch: "毕竟这不容易。", py: "Bìjìng zhè bù róngyì.", en: "After all, this isn't easy." },
+    { ch: "毕竟他刚开始学。", py: "Bìjìng tā gāng kāishǐ xué.", en: "After all, he just started learning." },
+  ],
+  怪不得: [
+    { ch: "怪不得你这么累。", py: "Guàibude nǐ zhème lèi.", en: "No wonder you're so tired." },
+    { ch: "怪不得他没来。", py: "Guàibude tā méi lái.", en: "No wonder he didn't come." },
+    { ch: "怪不得这么贵。", py: "Guàibude zhème guì.", en: "No wonder it's so expensive." },
+    { ch: "怪不得你不高兴。", py: "Guàibude nǐ bù gāoxìng.", en: "No wonder you're unhappy." },
+    { ch: "怪不得房间这么冷。", py: "Guàibude fángjiān zhème lěng.", en: "No wonder the room is so cold." },
+    { ch: "怪不得他懂这么多。", py: "Guàibude tā dǒng zhème duō.", en: "No wonder he knows so much." },
+    { ch: "怪不得你迟到了。", py: "Guàibude nǐ chídào le.", en: "No wonder you were late." },
+  ],
+  居然: [
+    { ch: "他居然来了！", py: "Tā jūrán lái le!", en: "He actually came!" },
+    { ch: "我居然忘了。", py: "Wǒ jūrán wàng le.", en: "I actually forgot, unbelievably." },
+    { ch: "她居然会说中文！", py: "Tā jūrán huì shuō Zhōngwén!", en: "She can actually speak Chinese!" },
+    { ch: "居然下雪了！", py: "Jūrán xiàxuě le!", en: "It's actually snowing!" },
+    { ch: "他居然不知道。", py: "Tā jūrán bù zhīdào.", en: "Surprisingly, he didn't know." },
+    { ch: "我居然赢了！", py: "Wǒ jūrán yíng le!", en: "I actually won!" },
+    { ch: "居然是真的。", py: "Jūrán shì zhēn de.", en: "It's actually true, surprisingly." },
+  ],
+};
+
+const SAT = {
+  id: "sat", label: "Saturday", theme: "Use all 25 words",
+  dialogue: [
+    { s: "A", ch: "今天工作怎么样？", py: "Jīntiān gōngzuò zěnmeyàng?", en: "How was work today?" },
+    { s: "B", ch: "还可以，而且我终于做完了一个大项目。", py: "Hái kěyǐ, érqiě wǒ zhōngyú zuò wánle yí ge dà xiàngmù.", en: "Fine — and I finally finished a big project." },
+    { s: "A", ch: "真的吗？结果怎么样？", py: "Zhēn de ma? Jiéguǒ zěnmeyàng?", en: "Really? How did it turn out?" },
+    { s: "B", ch: "结果不错，但是过程麻烦，尤其是最后一天。", py: "Jiéguǒ búcuò, dànshì guòchéng máfan, yóuqí shì zuìhòu yì tiān.", en: "It turned out well, but the process was a hassle, especially the last day." },
+    { s: "A", ch: "可惜我没帮上忙。", py: "Kěxí wǒ méi bāng shàng máng.", en: "Too bad I couldn't help." },
+    { s: "B", ch: "没关系，毕竟你也很忙。", py: "Méi guānxi, bìjìng nǐ yě hěn máng.", en: "It's fine, after all you're busy too." },
+    { s: "A", ch: "顺便问一下，晚上要不要看电影？", py: "Shùnbiàn wèn yíxià, wǎnshàng yào bu yào kàn diànyǐng?", en: "While I'm asking — want to watch a movie tonight?" },
+    { s: "B", ch: "当然要！我估计今天的电影肯定很好看。", py: "Dāngrán yào! Wǒ gūjì jīntiān de diànyǐng kěndìng hěn hǎokàn.", en: "Of course! I bet tonight's movie is definitely good." },
+    { s: "A", ch: "除了电影，我们还可以吃火锅。", py: "Chúle diànyǐng, wǒmen hái kěyǐ chī huǒguō.", en: "Besides the movie, we could also have hot pot." },
+    { s: "B", ch: "好主意，居然忘了今天可以吃火锅！", py: "Hǎo zhǔyi, jūrán wàngle jīntiān kěyǐ chī huǒguō!", en: "Good idea — I can't believe I forgot we could have hot pot today!" },
+    { s: "A", ch: "怪不得你今天这么开心。", py: "Guàibude nǐ jīntiān zhème kāixīn.", en: "No wonder you're so happy today." },
+    { s: "B", ch: "即使很累，我也想跟你出去。", py: "Jíshǐ hěn lèi, wǒ yě xiǎng gēn nǐ chūqù.", en: "Even if I'm tired, I still want to go out with you." },
+  ],
+  prompts: [
+    { ch: "这周你最喜欢哪个词？为什么？", py: "Zhè zhōu nǐ zuì xǐhuan nǎge cí? Wèishénme?" },
+    { ch: "今天工作怎么样？", py: "Jīntiān gōngzuò zěnmeyàng?" },
+    { ch: "你觉得呢？", py: "Nǐ juéde ne?" },
+    { ch: "为什么这么说？", py: "Wèishénme zhème shuō?" },
+    { ch: "我不太明白，可以再说一次吗？", py: "Wǒ bú tài míngbai, kěyǐ zài shuō yí cì ma?" },
+    { ch: "这周有什么事让你觉得居然发生了？", py: "Zhè zhōu yǒu shénme shì ràng nǐ juéde jūrán fāshēng le?" },
+    { ch: "除了中文，你这周还做了什么？", py: "Chúle Zhōngwén, nǐ zhè zhōu hái zuòle shénme?" },
+    { ch: "毕竟学了一周，你感觉怎么样？", py: "Bìjìng xuéle yì zhōu, nǐ gǎnjué zěnmeyàng?" },
+  ],
+};
+
+const SUN = {
+  id: "sun", label: "Sunday", theme: "Free conversation — no new words",
+  prompts: [
+    { ch: "今天工作怎么样？", py: "Jīntiān gōngzuò zěnmeyàng?" },
+    { ch: "你觉得呢？", py: "Nǐ juéde ne?" },
+    { ch: "为什么这么说？", py: "Wèishénme zhème shuō?" },
+    { ch: "我不太明白。", py: "Wǒ bú tài míngbai." },
+    { ch: "可以再说一次吗？", py: "Kěyǐ zài shuō yí cì ma?" },
+    { ch: "这周你最喜欢的一天是哪天？", py: "Zhè zhōu nǐ zuì xǐhuan de yì tiān shì nǎ tiān?" },
+    { ch: "下周你想谈什么话题？", py: "Xià zhōu nǐ xiǎng tán shénme huàtí?" },
+  ],
+};
+
+const ALL_DAY_KEYS = [...DAYS.map(d => d.id), "sat", "sun"];
+const STORAGE_KEY = "mb-week1-progress";
+
+/* ---------------------------------------------------------------
+   State
+----------------------------------------------------------------- */
+const state = {
+  dayIdx: 0,
+  view: "lesson",
+  wordLevels: {},
+  missions: {},
+  steps: {},
+  deckOrder: [],
+  deckPos: 0,
+  revealed: false,
+  playingIdx: -1,
+};
+let stopSequence = null;
+let loaded = false;
+let saveTimer = null;
+
+function esc(str) {
+  return String(str).replace(/&/g, "&amp;").replace(/"/g, "&quot;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+}
+
+function currentDay() {
+  const id = ALL_DAY_KEYS[state.dayIdx];
+  if (state.dayIdx < 5) return DAYS[state.dayIdx];
+  return id === "sat" ? SAT : SUN;
+}
+
+function shuffledIndices(n) {
+  const arr = Array.from({ length: n }, (_, i) => i);
+  for (let i = arr.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [arr[i], arr[j]] = [arr[j], arr[i]];
+  }
+  return arr;
+}
+
+function resetDeck() {
+  const day = currentDay();
+  const pool = (day.words || []).flatMap(w => (SENTENCE_BANK[w.ch] || []).map(s => ({ ...s, word: w.ch })));
+  state._deckPool = pool;
+  state.deckOrder = shuffledIndices(pool.length);
+  state.deckPos = 0;
+  state.revealed = false;
+}
+
+/* ---------------------------------------------------------------
+   Speech
+----------------------------------------------------------------- */
+function speakOnce(text) {
+  try {
+    if (!window.speechSynthesis || typeof SpeechSynthesisUtterance === "undefined") return;
+    window.speechSynthesis.cancel();
+    const u = new SpeechSynthesisUtterance(text);
+    u.lang = "zh-CN";
+    u.rate = 0.88;
+    window.speechSynthesis.speak(u);
+  } catch (e) { /* not available */ }
+}
+
+function speakSequence(texts, onLineStart, onDone) {
+  if (!window.speechSynthesis || typeof SpeechSynthesisUtterance === "undefined") return () => {};
+  try { window.speechSynthesis.cancel(); } catch (e) { return () => {}; }
+  let stopped = false;
+  let i = 0;
+  function playNext() {
+    if (stopped) return;
+    if (i >= texts.length) { onDone && onDone(); return; }
+    onLineStart && onLineStart(i);
+    try {
+      const u = new SpeechSynthesisUtterance(texts[i]);
+      u.lang = "zh-CN";
+      u.rate = 0.88;
+      u.onend = () => { if (!stopped) { i += 1; setTimeout(playNext, 450); } };
+      u.onerror = () => { if (!stopped) { i += 1; setTimeout(playNext, 450); } };
+      window.speechSynthesis.speak(u);
+    } catch (e) { i += 1; setTimeout(playNext, 450); }
+  }
+  playNext();
+  return () => { stopped = true; try { window.speechSynthesis.cancel(); } catch (e) {} };
+}
+
+/* ---------------------------------------------------------------
+   Rendering
+----------------------------------------------------------------- */
+function stampHtml(level, action) {
+  const meta = LEVELS[level];
+  const isAuto = level === 4;
+  return `<button class="stamp" data-action="${action}" style="border:1.5px solid ${meta.stamp}; color:${isAuto ? '#F5F0E6' : meta.stamp}; background:${isAuto ? meta.stamp : 'transparent'};">
+    <span>${meta.tag}</span><span>${meta.label}</span>
+  </button>`;
+}
+
+function renderHeader() {
+  const masteredCount = Object.values(state.wordLevels).filter(l => l === 4).length;
+  return `
+  <header class="header">
+    <div class="header-inner">
+      <div style="min-width:0;">
+        <div class="kicker ui">第一周 · Week One</div>
+        <h1 class="title">日常生活与看法</h1>
+        <div class="subtitle ui">Everyday life &amp; opinions — 5 minutes of real conversation by Sunday</div>
+      </div>
+      <div class="tabs ui">
+        <button class="tab-btn ${state.view === 'lesson' ? 'active' : ''}" data-action="view:lesson">Lesson</button>
+        <button class="tab-btn ${state.view === 'progress' ? 'active' : ''}" data-action="view:progress">Progress (${masteredCount}/25 ⭐)</button>
+      </div>
+    </div>
+  </header>`;
+}
+
+function renderDaySwitcher() {
+  return `<nav class="day-switcher ui">
+    ${ALL_DAY_KEYS.map((id, i) => {
+      const label = i < 5 ? DAYS[i].label : (i === 5 ? "Saturday" : "Sunday");
+      return `<button class="day-btn ${i === state.dayIdx ? 'active' : ''}" data-action="day:${i}">${label.slice(0,3)}</button>`;
+    }).join("")}
+  </nav>`;
+}
+
+function renderSectionLabel(n, title, sub) {
+  return `<div class="section-label ui">
+    <span class="section-n">${n}</span>
+    <span class="section-title">${esc(title)}</span>
+    ${sub ? `<span class="section-sub">${esc(sub)}</span>` : ""}
+  </div>`;
+}
+
+function renderChecklist(dayId) {
+  const stepList = [
+    { key: "review", label: "Review (Noji + Blueprint)" },
+    { key: "vocab", label: "New vocabulary" },
+    { key: "read", label: "Read the dialogue" },
+    { key: "speak", label: "Speak — answer aloud" },
+    { key: "listen", label: "Listen on repeat" },
+  ];
+  const dObj = state.steps[dayId] || {};
+  return `<section class="card">
+    ${renderSectionLabel("—", "Today's session", "~45–60 min")}
+    <div class="ui" style="display:flex; flex-direction:column; gap:8px;">
+      ${stepList.map(s => {
+        const done = !!dObj[s.key];
+        return `<label style="display:flex; align-items:center; gap:10px; font-size:14px; color:${done ? '#8a8574' : '#F5F0E6'}; text-decoration:${done ? 'line-through' : 'none'}; cursor:pointer;">
+          <input type="checkbox" ${done ? "checked" : ""} data-action="step:${dayId}:${s.key}" />
+          ${esc(s.label)}
+        </label>`;
+      }).join("")}
+    </div>
+  </section>`;
+}
+
+function renderIsland(day) {
+  return `<section class="card island">
+    ${renderSectionLabel("★", "Language Island", "A sentence you'll actually use")}
+    <div class="island-row">
+      <div class="island-hanzi">${day.island.ch}</div>
+      <button class="speak-btn" data-speak="${esc(day.island.ch)}">🔊</button>
+    </div>
+    <div class="island-py ui">${day.island.py}</div>
+    <div class="island-en ui">${esc(day.island.en)}</div>
+  </section>`;
+}
+
+function renderVocab(day) {
+  return `<section class="card">
+    ${renderSectionLabel("1", "New vocabulary", "5 words — tap the stamp as you master each one")}
+    <div>
+      ${day.words.map(w => {
+        const lvl = state.wordLevels[w.ch] || 0;
+        return `<div class="word-row">
+          <div class="word-left">
+            <span class="word-hanzi">${w.ch}</span>
+            <button class="speak-btn" data-speak="${esc(w.ch)}">🔊</button>
+            <div>
+              <div class="word-py ui">${w.py}</div>
+              <div class="word-en ui">${esc(w.en)}</div>
+            </div>
+          </div>
+          ${stampHtml(lvl, "word:" + w.ch)}
+        </div>`;
+      }).join("")}
+    </div>
+  </section>`;
+}
+
+function renderDeck() {
+  const pool = state._deckPool || [];
+  const order = state.deckOrder;
+  const current = pool[order[state.deckPos]];
+  if (!current) return "";
+  return `<section class="card">
+    ${renderSectionLabel("2", "Example sentences", "35 sentences, mixed up — listen first, reveal after")}
+    <div class="deck-top ui">
+      <span>${state.deckPos + 1} / ${order.length}</span>
+      <button class="ghost-btn" data-action="deck:shuffle">⇄ Shuffle</button>
+    </div>
+    <div class="deck-box">
+      <div class="deck-tag ui">practicing ${current.word}</div>
+      <div class="deck-hanzi-row">
+        <div class="deck-hanzi">${current.ch}</div>
+        <button class="speak-btn" data-speak="${esc(current.ch)}" style="font-size:19px;">🔊</button>
+      </div>
+      ${state.revealed ? `
+        <div>
+          <div class="deck-py ui">${current.py}</div>
+          <div class="deck-en ui">${esc(current.en)}</div>
+        </div>
+        <button class="ghost-btn" data-action="deck:hide" style="opacity:.6;">🙈 Hide</button>
+      ` : `
+        <button class="ghost-btn" data-action="deck:reveal">👁 Show pinyin &amp; English</button>
+      `}
+    </div>
+    <div class="deck-nav">
+      <button class="nav-arrow" data-action="deck:prev">‹ Prev</button>
+      <button class="nav-arrow" data-action="deck:next">Next ›</button>
+    </div>
+  </section>`;
+}
+
+function renderDialogue(dialogue) {
+  if (!dialogue) return "";
+  return `<section class="card">
+    ${renderSectionLabel("3", "Dialogue", "Read it, then listen on repeat")}
+    <div>
+      ${dialogue.map((l, i) => `
+        <div class="dlg-line ${state.playingIdx === i ? 'playing' : ''}">
+          <span class="dlg-avatar ${l.s}">${l.s}</span>
+          <div style="flex:1;">
+            <div style="display:flex; align-items:center; gap:6px;">
+              <span class="dlg-hanzi">${l.ch}</span>
+              <button class="speak-btn" data-speak="${esc(l.ch)}">🔊</button>
+            </div>
+            <div class="dlg-py ui">${l.py}</div>
+            <div class="dlg-en ui">${esc(l.en)}</div>
+          </div>
+        </div>
+      `).join("")}
+    </div>
+    ${state.playingIdx === -1
+      ? `<button class="play-btn ui" data-action="dlg:play">▶ Play whole dialogue</button>`
+      : `<button class="play-btn stop ui" data-action="dlg:stop">■ Stop</button>`
+    }
+  </section>`;
+}
+
+function renderPrompts(prompts) {
+  return `<section class="card">
+    ${renderSectionLabel("4", "Speaking practice", "Answer out loud — no English")}
+    <div>
+      ${prompts.map((p, i) => `
+        <div class="prompt-row">
+          <span class="prompt-n ui">${i + 1}</span>
+          <button class="speak-btn" data-speak="${esc(p.ch)}">🔊</button>
+          <div>
+            <div class="prompt-hanzi">${p.ch}</div>
+            <div class="prompt-py ui">${p.py}</div>
+          </div>
+        </div>
+      `).join("")}
+    </div>
+  </section>`;
+}
+
+function renderMission(day, dayId) {
+  const done = !!state.missions[dayId];
+  return `<section class="card mission">
+    ${renderSectionLabel("✓", "Mission with your husband", "Real use, not a drill")}
+    <label class="mission-label ui">
+      <input type="checkbox" ${done ? "checked" : ""} data-action="mission:${dayId}" style="margin-top:3px; flex-shrink:0;" />
+      <span class="mission-text ${done ? 'done' : ''}">${esc(day.mission)}</span>
+    </label>
+  </section>`;
+}
+
+function renderLessonView() {
+  const dayId = ALL_DAY_KEYS[state.dayIdx];
+  const isWeekday = state.dayIdx < 5;
+  const day = currentDay();
+
+  let html = renderDaySwitcher();
+  html += `<main class="main">`;
+  html += `
+    <div class="day-heading">
+      <button class="nav-arrow" data-action="nav:prev" ${state.dayIdx === 0 ? "disabled" : ""}>‹</button>
+      <div>
+        <div class="day-title">${day.label}</div>
+        <div class="day-theme ui">${esc(day.theme)}</div>
+      </div>
+      <button class="nav-arrow" data-action="nav:next" ${state.dayIdx === 6 ? "disabled" : ""}>›</button>
+    </div>`;
+
+  html += renderChecklist(dayId);
+  if (isWeekday) html += renderIsland(day);
+  if (isWeekday) html += renderVocab(day);
+  if (isWeekday) html += renderDeck();
+  html += renderDialogue(day.dialogue);
+  html += renderPrompts(day.prompts);
+  if (isWeekday) html += renderMission(day, dayId);
+  html += `</main>`;
+  return html;
+}
+
+function renderProgressView() {
+  const masteredCount = Object.values(state.wordLevels).filter(l => l === 4).length;
+  const startedCount = Object.keys(state.wordLevels).length;
+  let html = `<main class="main" style="padding-top:20px;">`;
+  html += `
+    <div class="ui" style="margin-bottom:22px;">
+      <div class="progress-summary">${masteredCount} of 25 words automatic · ${startedCount} started</div>
+      <div class="progress-bar-outer"><div class="progress-bar-inner" style="width:${(masteredCount/25)*100}%;"></div></div>
+    </div>`;
+  html += `<div class="legend ui">${LEVELS.map(l => `<div style="display:flex; align-items:center; gap:5px;"><span>${l.tag}</span><span>${l.label}</span></div>`).join("")}</div>`;
+
+  DAYS.forEach(d => {
+    html += `<div class="day-group">
+      <div class="day-group-title ui">${d.label} · ${esc(d.theme)}</div>
+      <div class="word-chips">
+        ${d.words.map(w => {
+          const lvl = state.wordLevels[w.ch] || 0;
+          return `<div class="word-chip">
+            <div class="word-chip-top">
+              <span class="word-chip-hanzi">${w.ch}</span>
+              <button class="speak-btn" data-speak="${esc(w.ch)}" style="font-size:13px;">🔊</button>
+            </div>
+            <div class="word-chip-py ui">${w.py}</div>
+            ${stampHtml(lvl, "word:" + w.ch)}
+          </div>`;
+        }).join("")}
+      </div>
+    </div>`;
+  });
+  html += `</main>`;
+  return html;
+}
+
+function render() {
+  const app = document.getElementById("app");
+  let html = renderHeader();
+  html += state.view === "lesson" ? renderLessonView() : renderProgressView();
+  app.innerHTML = html;
+  bindEvents();
+}
+
+/* ---------------------------------------------------------------
+   Event binding (re-attached after every render)
+----------------------------------------------------------------- */
+function bindEvents() {
+  document.querySelectorAll("[data-speak]").forEach(el => {
+    el.addEventListener("click", () => speakOnce(el.getAttribute("data-speak")));
+  });
+
+  document.querySelectorAll("[data-action]").forEach(el => {
+    const action = el.getAttribute("data-action");
+    const fire = () => handleAction(action);
+    if (el.tagName === "INPUT") {
+      el.addEventListener("change", fire);
+    } else {
+      el.addEventListener("click", fire);
+    }
+  });
+}
+
+function handleAction(action) {
+  const [type, a, b] = action.split(":");
+
+  if (type === "view") {
+    state.view = a;
+    render();
+    return;
+  }
+
+  if (type === "day") {
+    state.dayIdx = parseInt(a, 10);
+    resetDeck();
+    if (stopSequence) { stopSequence(); stopSequence = null; }
+    state.playingIdx = -1;
+    render();
+    return;
+  }
+
+  if (type === "nav") {
+    if (a === "prev") state.dayIdx = Math.max(0, state.dayIdx - 1);
+    if (a === "next") state.dayIdx = Math.min(6, state.dayIdx + 1);
+    resetDeck();
+    if (stopSequence) { stopSequence(); stopSequence = null; }
+    state.playingIdx = -1;
+    render();
+    return;
+  }
+
+  if (type === "step") {
+    const dayId = a, key = b;
+    if (!state.steps[dayId]) state.steps[dayId] = {};
+    state.steps[dayId][key] = !state.steps[dayId][key];
+    persist();
+    render();
+    return;
+  }
+
+  if (type === "mission") {
+    const dayId = a;
+    state.missions[dayId] = !state.missions[dayId];
+    persist();
+    render();
+    return;
+  }
+
+  if (type === "word") {
+    const ch = action.slice(5); // preserve full word incl any ':' edge cases
+    const cur = state.wordLevels[ch] || 0;
+    state.wordLevels[ch] = (cur + 1) % 5;
+    persist();
+    render();
+    return;
+  }
+
+  if (type === "deck") {
+    if (a === "shuffle") { resetDeck(); }
+    else if (a === "prev") { state.revealed = false; state.deckPos = (state.deckPos - 1 + state.deckOrder.length) % state.deckOrder.length; }
+    else if (a === "next") { state.revealed = false; state.deckPos = (state.deckPos + 1) % state.deckOrder.length; }
+    else if (a === "reveal") { state.revealed = true; }
+    else if (a === "hide") { state.revealed = false; }
+    render();
+    return;
+  }
+
+  if (type === "dlg") {
+    const day = currentDay();
+    if (a === "play") {
+      if (stopSequence) stopSequence();
+      stopSequence = speakSequence(
+        day.dialogue.map(l => l.ch),
+        (i) => { state.playingIdx = i; render(); },
+        () => { state.playingIdx = -1; stopSequence = null; render(); }
+      );
+    } else if (a === "stop") {
+      if (stopSequence) { stopSequence(); stopSequence = null; }
+      state.playingIdx = -1;
+      render();
+    }
+    return;
+  }
+}
+
+/* ---------------------------------------------------------------
+   Persistence
+----------------------------------------------------------------- */
+function persist() {
+  if (saveTimer) clearTimeout(saveTimer);
+  saveTimer = setTimeout(async () => {
+    try {
+      await window.storage.set(STORAGE_KEY, JSON.stringify({
+        wordLevels: state.wordLevels,
+        missions: state.missions,
+        steps: state.steps,
+      }), false);
+    } catch (e) { /* storage unavailable */ }
+  }, 300);
+}
+
+async function init() {
+  try {
+    const res = await window.storage.get(STORAGE_KEY, false);
+    if (res && res.value) {
+      const parsed = JSON.parse(res.value);
+      state.wordLevels = parsed.wordLevels || {};
+      state.missions = parsed.missions || {};
+      state.steps = parsed.steps || {};
+    }
+  } catch (e) { /* no saved state yet */ }
+  resetDeck();
+  render();
+}
+
+init();
+</script>
+</body>
+</html>
